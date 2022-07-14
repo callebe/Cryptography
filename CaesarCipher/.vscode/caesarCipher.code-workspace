@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			// "name": "Root",
+			"path": ".."
+		},
+		// {
+		// 	"name": "Source Code",
+		// 	"path": "../src"
+		// },
+		// {
+		// 	"name": "Api Headers",
+		// 	"path": "../api"
+		// },
+		// {
+		// 	"name": "Data Folder",
+		// 	"path": "../data"
+		// }
+	],
+	"settings": {
+		"files.associations": {
+		}
+	}
+}
