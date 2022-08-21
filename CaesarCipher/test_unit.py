@@ -21,7 +21,6 @@ LOGGER = logging.getLogger(__name__)
     [
         ("As frutas vermelhas que cairam devem ser jogadas fora",3,"Dv#iuxwdv#yhuphokdv#txh#fdludp#ghyhp#vhu#mrjdgdv#irud"),
         ("O amor mora no coração daqueles que crêem", 8, "W(iuwz(uwzi(vw(kwziïëw(liy}mtm{(y}m(kzòmu"),
-        ("Não existe amor em SP", 2,"Påq\"gzkuvg\"coqt\"go\"UR")
     ],
 )
 class TestGroup_CaesarCipher:
