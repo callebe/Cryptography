@@ -20,4 +20,6 @@ blocks:
             - flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
             - pip install pytest
             - cd CaesarCipher
-            - pytest -q test_unit.py -o log_cli=true
+            - pytest -q test_unit.py -o log_cli=true --junitxml=results.xml
+            - test-results publish results.xml
+            - test-results gen-pipeline-report
