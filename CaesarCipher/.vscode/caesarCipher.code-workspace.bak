@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"name": "Source",
+			"path": "../src"
+		},
+		{
+			"name": "Data",
+			"path": "../data"
+		},
+		{
+			"name": "Unit Test",
+			"path": "../unitTest"
+		}
+	],
+	"settings": {
+		"files.associations": {
+		}
+	}
+}

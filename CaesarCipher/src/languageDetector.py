@@ -1,6 +1,3 @@
-from itertools import combinations
-
-
 WORD_LIST_FILE = 'mostFrewPortugueseWords.txt'
 wordList = []
 

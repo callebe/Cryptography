@@ -1,8 +1,8 @@
-import languageDetector as langDet
-import caesarCipher as cipher
+from src import languageDetector as langDet
+from src import caesarCipher as cipher
 
 ASCII_SIZE = 256
-WORD_LIST_FILE = 'mostFrewPortugueseWords.txt'
+WORD_LIST_FILE = 'data/mostFrewPortugueseWords.txt'
 langThreshold = 30
 
 def bruteForce( cipherText ):
