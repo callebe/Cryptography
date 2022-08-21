@@ -1,9 +1,11 @@
+from msilib.schema import Class
 import sys
 import pytest
 import logging
 
 from src import caesarCipher as caesar
-from src import bruteForce   as bF
+from src import bruteForce as bF
+from src import frequencyAnalizer as fA
 
 # LOGGER.info('Exemple')
 # LOGGER.warning('Exemple')
@@ -12,43 +14,76 @@ from src import bruteForce   as bF
 
 LOGGER = logging.getLogger(__name__)
 
-def test_CaesarCipher_Encrypt () :
 
-    # Arrange
-    key = 3
-    plainText = 'As frutas vermelhas que cairam devem ser jogadas fora'
-    expected_cipherText = 'Dv#iuxwdv#yhuphokdv#txh#fdludp#ghyhp#vhu#mrjdgdv#irud'
 
-    # Act
-    cipherText = caesar.encrypt( key,  plainText )
+@pytest.mark.parametrize(
+    "plainText, key, cipherText",
+    [
+        ("As frutas vermelhas que cairam devem ser jogadas fora",3,"Dv#iuxwdv#yhuphokdv#txh#fdludp#ghyhp#vhu#mrjdgdv#irud"),
+        ("O amor mora no coração daqueles que crêem", 8, "W(iuwz(uwzi(vw(kwziïëw(liy}mtm{(y}m(kzòmu"),
+        ("Não existe amor em SP", 2,"Påq\"gzkuvg\"coqt\"go\"UR")
+    ],
+)
+class TestGroup_CaesarCipher:
+    """A class with common parameters, plainText, key, cipherText."""
 
-    # Assert
-    assert expected_cipherText == cipherText , "CipherText from Encrypt using Caesar Cipher Matches"
+    # @pytest.fixture
+    # def fixt(self):
+    #     """This fixture will only be available within the scope of TestGroup"""
+    #     return 123
 
-def test_CaesarCipher_Decrypt () :
+    def test_Encrypt (self, plainText , key , cipherText) :
 
-    # Arrange
-    key = 3
-    cipherText = 'Dv#iuxwdv#yhuphokdv#txh#fdludp#ghyhp#vhu#mrjdgdv#irud'
-    expected_plainText = 'As frutas vermelhas que cairam devem ser jogadas fora'
+        # Arrange
+        # key = 3
+        # plainText = 'As frutas vermelhas que cairam devem ser jogadas fora'
+        # expected_cipherText = 'Dv#iuxwdv#yhuphokdv#txh#fdludp#ghyhp#vhu#mrjdgdv#irud'
 
-    # Act
-    plainText = caesar.decrypt( key,  cipherText )
+        # Act
+        return_cipherText = caesar.encrypt( key,  plainText )
 
-    # Assert
-    assert expected_plainText == plainText, "Plain text from Decrypt using Caesar Cipher Matches"
-    
-def test_bruteForce ():
+        # Assert
+        assert cipherText == return_cipherText , "CipherText from Encrypt using Caesar Cipher Matches"
 
-    # Arrange
-    cipherText = 'Dv#iuxwdv#yhuphokdv#txh#fdludp#ghyhp#vhu#mrjdgdv#irud'
-    expected_key = 3
-    expected_plainText = 'As frutas vermelhas que cairam devem ser jogadas fora'
+    def test_Decrypt (self, plainText , key,  cipherText) :
 
-    # Act
-    key = bF.bruteForce(cipherText)
-    plainText = caesar.decrypt( key, cipherText )
+        # Arrange
+        # key = 3
+        # cipherText = 'Dv#iuxwdv#yhuphokdv#txh#fdludp#ghyhp#vhu#mrjdgdv#irud'
+        # expected_plainText = 'As frutas vermelhas que cairam devem ser jogadas fora'
 
-    # Assert
-    assert expected_key       == key       , "The Caesar Cipher encrypt key using brute force stratege Matches"
-    assert expected_plainText == plainText , "The decrypted Plain text using brute force stratege Matches"
+        # Act
+        return_plainText = caesar.decrypt( key,  cipherText )
+
+        # Assert
+        assert plainText == return_plainText, "Plain text from Decrypt using Caesar Cipher Matches"
+        
+    def test_crackBruteForce (self, plainText, key,  cipherText ):
+
+        # Arrange
+        # cipherText = 'Dv#iuxwdv#yhuphokdv#txh#fdludp#ghyhp#vhu#mrjdgdv#irud'
+        # expected_key = 3
+        # expected_plainText = 'As frutas vermelhas que cairam devem ser jogadas fora'
+
+        # Act
+        return_key = bF.bruteForce(cipherText)
+        return_plainText = caesar.decrypt( return_key, cipherText )
+
+        # Assert
+        assert key       == return_key       , "The Caesar Cipher encrypt key using brute force stratege Matches"
+        assert plainText == return_plainText , "The decrypted Plain text using brute force stratege Matches"
+
+    def test_crackFrequenceAnalyzer(self, plainText, key,  cipherText ):
+
+        # Arrange
+        # cipherText = 'Dv#iuxwdv#yhuphokdv#txh#fdludp#ghyhp#vhu#mrjdgdv#irud'
+        # expected_key = 3
+        # expected_plainText = 'As frutas vermelhas que cairam devem ser jogadas fora'
+
+        # Act
+        return_key = fA.frequencyAnalizer_Cracker(cipherText)
+        return_plainText = caesar.decrypt( return_key, cipherText )
+
+        # Assert
+        assert key       == return_key       , "The Caesar Cipher encrypt key using frequence analysis stratege Matches"
+        assert plainText == return_plainText , "The decrypted Plain text using frequence analysis stratege Matches"

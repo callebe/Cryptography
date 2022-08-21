@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import caesarCipher as cipher
+from src import caesarCipher as caesar
 
 ASCII_SIZE = 255
 
@@ -12,21 +12,22 @@ def plotSpectrum(X,Y, Title):
     plt.bar(X, Y)
 
 
-def frequencyAnalizer( input, Title ):
+def frequencyAnalizer( input, Title, plot ):
 
     frequencySpectrumY = [0] * ASCII_SIZE
     frequencySpectrumX =  [ i for i in range(ASCII_SIZE) ]
     for letter in input:
         frequencySpectrumY[ord(letter)] = frequencySpectrumY[ord(letter)] + 1
-    plotSpectrum(frequencySpectrumX,frequencySpectrumY, Title)
+    if plot == True:
+        plotSpectrum(frequencySpectrumX,frequencySpectrumY, Title)
 
     return frequencySpectrumY
 
 
-def frequencyAnalizer_Cracker( cipherText ):
+def frequencyAnalizer_Cracker( cipherText, plot = False ):
 
-    freqSpecCipherText = frequencyAnalizer(cipherText, 'Cipher Text')
-    freqSpecSample     = frequencyAnalizer(sampleA, 'Portuguese Sample')
+    freqSpecCipherText = frequencyAnalizer(cipherText, plot, 'Cipher Text')
+    freqSpecSample     = frequencyAnalizer(sampleA, plot, 'Portuguese Sample')
     plt.show()
 
     # Searching for the most frequent Char on CipherText
@@ -55,8 +56,8 @@ def menu():
     print("Please, first provide the Cipher Text:")
     cipherText=input()
     print("----------------------------------")
-    key = frequencyAnalizer_Cracker( cipherText )
-    plainText=cipher.decrypt( key, cipherText )
+    key = frequencyAnalizer_Cracker( cipherText, True )
+    plainText=caesar.decrypt( key, cipherText )
     print("----------------------------------")
     print("The Key for encrypt mensage is:")
     print(key)
