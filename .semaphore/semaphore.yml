@@ -13,6 +13,7 @@ blocks:
             - echo $SEMAPHORE_PIPELINE_ID
             - python -m pip install --upgrade pip
             - checkout
+            - ls
             - pip install -r CaesarCipher/requirements.txt
             - pip install flake8
             - 'flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics'
