@@ -11,7 +11,7 @@ blocks:
         - name: pytest
           commands:
             - echo $SEMAPHORE_PIPELINE_ID
-            - sem-version python 3.10.2
+            - sem-version python 3.10
             - checkout
             - python -m pip install --upgrade pip
             - pip install -r requirements.txt
