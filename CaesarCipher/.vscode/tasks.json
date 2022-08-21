@@ -5,7 +5,7 @@
             "label": "Run Unit Test",
             "type": "shell",
             "command": [
-                "pytest.exe -q ${workspaceFolder}\\test_unit.py -o log_cli=true "
+                "pytest.exe -q ${workspaceFolder}\\test_unit.py -o log_cli=true  --junitxml=results.xml"
             ],
             "args": [],
             "options": {
