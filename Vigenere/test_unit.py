@@ -96,3 +96,55 @@ class TestGroup_kasiskiAlgo:
         assert return_subStrList.length == 2 , "The number of substrings founded on the CipherText"
         assert return_subStrList.subStrList[0].subStr == expected_strList.subStrList[0].subStr , "Return the longest Substrings founded on the CipherText, element 1"
         assert return_subStrList.subStrList[1].subStr == expected_strList.subStrList[1].subStr , "Return the longest Substrings founded on the CipherText, element 2"
+    
+    def test_calcPossibleKeys( self ):
+        # Arrange
+        cipherText = "abfcda asdefabfcdagvcasd asdc xfdqasdasd as "
+        expected_keyLengths = [12, 16]
+
+        # Act
+        return_keys = kasiski.calcPossiblePatternDistance( cipherText )
+
+        # Assert
+        assert return_keys == expected_keyLengths, "The Expected possible keys matches with the expected key array"
+
+    def test_calcDivisors( self ):
+        # Arrange
+        keyLengths = [ 5, 25, 10, 20, 35 ]
+        expected_divisors = [
+            [5, 1],
+            [25, 5, 1],
+            [10, 5, 2, 1],
+            [20, 10, 5, 4, 2, 1],
+            [35, 7, 5, 1]
+        ]
+
+        # Act
+        return_divisors = kasiski.calcDivisors( keyLengths )
+
+        # Assert
+        assert return_divisors == expected_divisors, "The Expected Divisors Matches with the return"
+
+    def test_calcGCD( self ):
+        # Arrange
+        keys = [ 5, 25, 10, 20, 35 ]
+        expected_GCD = 5
+
+        # Act
+        return_GCD = kasiski.calcGCD( keys )
+
+        # Assert
+        assert return_GCD == expected_GCD, "The expected GCD Matches with the return"
+
+    def test_calcKeyLength( self ):
+        # Arrange
+        plainText = "As frutas vermelhas que cairam devem ser jogadas fora"
+        key = "test"
+        cipherText = vigenere.encrypt( key,  plainText )
+        expected_KeyLength = len(key)
+
+        # Act
+        return_keyLength = kasiski.calcKeyLength(cipherText)
+
+        # Assert
+        assert return_keyLength == expected_KeyLength, "The expected GCD Matches with the return"
